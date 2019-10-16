@@ -759,44 +759,6 @@ $("#SLatLong").on("keydown", checkLatLongForEnter);
 $("#ELatLong").on("keydown", checkLatLongForEnter);
 $("#WLatLong").on("keydown", checkLatLongForEnter);
 
-// FIXME: Enable or replace copy feature
-function copyTextToClipboard(text) {
-  var textArea = $("<textarea>");
-  textArea.text(text);
-  $("body").append(textArea);
-  textArea.focus();
-  textArea.select();
-
-  try {
-    var successful = document.execCommand("copy");
-  } catch (err) {
-    console.error("Fallback: Oops, unable to copy", err);
-  }
-
-  textArea.remove();
-}
-
-function getTextTFromClipboard() {
-  var textArea = $("<textarea>");
-  $("body").append(textArea);
-
-  textArea.on("pasteText", function(ev, data) {
-    console.log(data);
-  });
-}
-
-function copyExtent(event) {
-  copyTextToClipboard("hope");
-}
-
-function pasteExtent(event) {
-  console.log(getTextTFromClipboard());
-}
-
-$("#copyButton")[0].addEventListener("click", copyExtent);
-
-$("#pasteButton")[0].addEventListener("click", pasteExtent);
-
 $(document).bind(
   "webkitfullscreenchange mozfullscreenchange fullscreenchange",
   function(e) {
