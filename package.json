@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "jquery-ui-dist": "^1.12.1"
+  },
+  "scripts": {
+    "dev": "cp data.json dist/data.json & cp metadata.json ./dist/metadata.json & parcel viewport.html",
+    "build": "cp data.json dist/data.json & cp metadata.json ./dist/metadata.json & parcel build viewport.html --public-url ./"
   }
 }
