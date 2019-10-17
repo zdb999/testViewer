@@ -235,7 +235,7 @@
             "link": ""
         },
         "nb": {
-            "nickname": "Geometric Erosion",
+            "nickname": "Geometric Mean Erosion",
             "layerType": "out",
             "abstract": "",
             "sup": "",
@@ -269,7 +269,7 @@
         "Engineering Frontage",
         "Erosion Susceptibility",
         "Foreshore Slope",
-        "Geometric Erosion",
+        "Geometric Mean Erosion",
         "Geometric Mean Habitat",
         "Geometric Mean Seawater",
         "Geometric Mean Social",
