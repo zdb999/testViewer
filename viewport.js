@@ -166,7 +166,7 @@ function displayLayer(val) {
   let link = window.metadata.layers[val].link;
   let sup = window.metadata.layers[val].sup;
 
-  content.append($("<h3>").text(layerName));
+  content.append($("<h2>").text(layerName));
   if (link != "") {
     content.append(
       $("<a>")
