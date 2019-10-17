@@ -38,6 +38,12 @@ var popupOverlay = new Overlay({
   }
 });
 
+function closePopup() {
+  popupOverlay.setPosition(undefined);
+  select.getFeatures().clear();
+  return false;
+}
+
 var jurisdiction_picker = $("#juris-picker");
 var ind_layer_picker = $("#independent-layer-picker");
 var out_layer_picker = $("#output-layer-picker");
@@ -129,7 +135,7 @@ $.getJSON("./metadata.json", function(data) {
       }
       updateLayer();
       zoomToVectorExtent();
-    },
+    }
   });
 
   ind_layer_picker.combobox({
@@ -138,7 +144,7 @@ $.getJSON("./metadata.json", function(data) {
       window.independentLayer = ui.item.value;
       window.currentLayer = window.independentLayer;
       updateLayer();
-    },
+    }
   });
   out_layer_picker.combobox({
     label: "Select an output layer",
@@ -146,7 +152,7 @@ $.getJSON("./metadata.json", function(data) {
       window.outLayer = ui.item.value;
       window.currentLayer = window.outLayer;
       updateLayer();
-    },
+    }
   });
 });
 
@@ -155,6 +161,7 @@ function updateLayer() {
     vectorLayer.getSource().changed();
     calculateActiveVectorProperties();
     displayLayer(window.currentLayer);
+    closePopup();
   }
 }
 
@@ -878,48 +885,44 @@ var selectStyle = function(feature) {
   }
 };
 
-$(document).ready(function() {
-  var select = new Select({
-    style: selectStyle
-  });
-  map.addInteraction(select);
-  select.on("select", function(e) {
-    var features = e.target.getFeatures().getArray();
-    if (features.length == 1) {
-      let feature = features[0];
-      let extent = feature.getGeometry().getExtent();
-      var featureValues = feature.getProperties();
-      let center = getCenter(extent);
-      let content = $("<p>");
-      let lonLat = toLonLat(center);
-      let lon = lonLat[0].toFixed(3);
-      let lat = lonLat[1].toFixed(3);
-      content.append(
-        "<span><b>Position:</b> " + lon + "°E, " + lat + "°N</span><br>"
-      );
-      content.append(
-        "<span><b>Town:</b> " +
-          window.metadata.towns[featureValues.t].nickname +
-          "</span><br>"
-      );
-      content.append(
-        "<span><b>COG:</b> " +
-          window.metadata.cogs[featureValues.c].nickname +
-          "</span><br>"
-      );
-      content.append(
-        "<span><b>Rank:</b> " +
-          featureValues[window.currentLayer] +
-          "</span><br>"
-      );
-      $("#popup-content").html(content);
-      popupOverlay.setPosition(center);
-    }
-  });
-
-  $("#popup-closer").click(function() {
-    popupOverlay.setPosition(undefined);
-    select.getFeatures().clear();
-    return false;
-  });
+// $(document).ready(function() {
+var select = new Select({
+  style: selectStyle
 });
+map.addInteraction(select);
+select.on("select", function(e) {
+  var features = e.target.getFeatures().getArray();
+  if (features.length == 1 && shouldShowFeature(features[0])) {
+    let feature = features[0];
+    let extent = feature.getGeometry().getExtent();
+    var featureValues = feature.getProperties();
+    let center = getCenter(extent);
+    let content = $("<p>");
+    let lonLat = toLonLat(center);
+    let lon = lonLat[0].toFixed(3);
+    let lat = lonLat[1].toFixed(3);
+    content.append(
+      "<span><b>Position:</b> " + lon + "°E, " + lat + "°N</span><br>"
+    );
+    content.append(
+      "<span><b>Town:</b> " +
+        window.metadata.towns[featureValues.t].nickname +
+        "</span><br>"
+    );
+    content.append(
+      "<span><b>COG:</b> " +
+        window.metadata.cogs[featureValues.c].nickname +
+        "</span><br>"
+    );
+    content.append(
+      "<span><b>Rank:</b> " + featureValues[window.currentLayer] + "</span><br>"
+    );
+    $("#popup-content").html(content);
+    popupOverlay.setPosition(center);
+  } else {
+    closePopup();
+  }
+});
+
+$("#popup-closer").click(closePopup);
+// });

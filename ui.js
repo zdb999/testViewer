@@ -1,7 +1,6 @@
 $.widget("custom.combobox", {
   options: {
     label: "Thing",
-    value: "Layer"
   },
 
   _create: function() {
@@ -21,6 +20,19 @@ $.widget("custom.combobox", {
       .appendTo(this.wrapper)
       .val(value)
       .attr("title", "")
+      .focus(
+        function () {
+          this.currentVal = $(this).val();
+          $(this).val("");
+        }
+      )
+      .blur(
+        function () {
+          if ($(this).val() == "") {
+            $(this).val(this.currentVal);
+          }
+        }
+      )
       .addClass("custom-combobox-input ui-widget ui-widget-content")
       .autocomplete({
         delay: 0,
