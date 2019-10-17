@@ -120,8 +120,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"ui.js":[function(require,module,exports) {
 $.widget("custom.combobox", {
   options: {
-    label: "Thing",
-    value: "Layer"
+    label: "Thing"
   },
   _create: function _create() {
     this.wrapper = $("<div>").addClass("custom-combobox").insertAfter(this.element);
@@ -134,7 +133,14 @@ $.widget("custom.combobox", {
   _createAutocomplete: function _createAutocomplete() {
     var selected = this.element.children(":selected");
     value = selected.val() ? selected.text() : "";
-    this.input = $("<input>").appendTo(this.wrapper).val(value).attr("title", "").addClass("custom-combobox-input ui-widget ui-widget-content").autocomplete({
+    this.input = $("<input>").appendTo(this.wrapper).val(value).attr("title", "").focus(function () {
+      this.currentVal = $(this).val();
+      $(this).val("");
+    }).blur(function () {
+      if ($(this).val() == "") {
+        $(this).val(this.currentVal);
+      }
+    }).addClass("custom-combobox-input ui-widget ui-widget-content").autocomplete({
       delay: 0,
       minLength: 0,
       source: $.proxy(this, "_source")
@@ -98582,6 +98588,13 @@ var popupOverlay = new _Overlay.default({
     duration: 250
   }
 });
+
+function closePopup() {
+  popupOverlay.setPosition(undefined);
+  select.getFeatures().clear();
+  return false;
+}
+
 var jurisdiction_picker = $("#juris-picker");
 var ind_layer_picker = $("#independent-layer-picker");
 var out_layer_picker = $("#output-layer-picker");
@@ -98692,6 +98705,7 @@ function updateLayer() {
     vectorLayer.getSource().changed();
     calculateActiveVectorProperties();
     displayLayer(window.currentLayer);
+    closePopup();
   }
 }
 
@@ -98702,7 +98716,7 @@ function displayLayer(val) {
   var abstract = window.metadata.layers[val].abstract;
   var link = window.metadata.layers[val].link;
   var sup = window.metadata.layers[val].sup;
-  content.append($("<h3>").text(layerName));
+  content.append($("<h2>").text(layerName));
 
   if (link != "") {
     content.append($("<a>").text("Source Link").attr("href", link).attr("target", 'target="_blank"'));
@@ -99396,41 +99410,38 @@ var selectStyle = function selectStyle(feature) {
       stroke: null
     });
   }
-};
+}; // $(document).ready(function() {
 
-$(document).ready(function () {
-  var select = new _Select.default({
-    style: selectStyle
-  });
-  map.addInteraction(select);
-  select.on("select", function (e) {
-    var features = e.target.getFeatures().getArray();
 
-    if (features.length == 1) {
-      var feature = features[0];
-
-      var _extent = feature.getGeometry().getExtent();
-
-      var featureValues = feature.getProperties();
-      var center = (0, _extent2.getCenter)(_extent);
-      var content = $("<p>");
-      var lonLat = (0, _proj.toLonLat)(center);
-      var lon = lonLat[0].toFixed(3);
-      var lat = lonLat[1].toFixed(3);
-      content.append("<span><b>Position:</b> " + lon + "°E, " + lat + "°N</span><br>");
-      content.append("<span><b>Town:</b> " + window.metadata.towns[featureValues.t].nickname + "</span><br>");
-      content.append("<span><b>COG:</b> " + window.metadata.cogs[featureValues.c].nickname + "</span><br>");
-      content.append("<span><b>Rank:</b> " + featureValues[window.currentLayer] + "</span><br>");
-      $("#popup-content").html(content);
-      popupOverlay.setPosition(center);
-    }
-  });
-  $("#popup-closer").click(function () {
-    popupOverlay.setPosition(undefined);
-    select.getFeatures().clear();
-    return false;
-  });
+var select = new _Select.default({
+  style: selectStyle
 });
+map.addInteraction(select);
+select.on("select", function (e) {
+  var features = e.target.getFeatures().getArray();
+
+  if (features.length == 1 && shouldShowFeature(features[0])) {
+    var feature = features[0];
+
+    var _extent = feature.getGeometry().getExtent();
+
+    var featureValues = feature.getProperties();
+    var center = (0, _extent2.getCenter)(_extent);
+    var content = $("<p>");
+    var lonLat = (0, _proj.toLonLat)(center);
+    var lon = lonLat[0].toFixed(3);
+    var lat = lonLat[1].toFixed(3);
+    content.append("<span><b>Position:</b> " + lon + "°E, " + lat + "°N</span><br>");
+    content.append("<span><b>Town:</b> " + window.metadata.towns[featureValues.t].nickname + "</span><br>");
+    content.append("<span><b>COG:</b> " + window.metadata.cogs[featureValues.c].nickname + "</span><br>");
+    content.append("<span><b>Rank:</b> " + featureValues[window.currentLayer] + "</span><br>");
+    $("#popup-content").html(content);
+    popupOverlay.setPosition(center);
+  } else {
+    closePopup();
+  }
+});
+$("#popup-closer").click(closePopup); // });
 },{"./ui.js":"ui.js","./plot.js":"plot.js","ol/ol.css":"../node_modules/ol/ol.css","./viewport.css":"viewport.css","mathjs/number":"../node_modules/mathjs/number.js","ol/Map":"../node_modules/ol/Map.js","ol/View":"../node_modules/ol/View.js","ol/layer/Vector":"../node_modules/ol/layer/Vector.js","ol/layer/Tile":"../node_modules/ol/layer/Tile.js","ol/source/TileArcGISRest":"../node_modules/ol/source/TileArcGISRest.js","ol/source/Vector":"../node_modules/ol/source/Vector.js","ol/Overlay":"../node_modules/ol/Overlay.js","ol/proj":"../node_modules/ol/proj.js","ol/style":"../node_modules/ol/style.js","ol/geom/Polygon":"../node_modules/ol/geom/Polygon.js","ol/Feature":"../node_modules/ol/Feature.js","ol/control/FullScreen":"../node_modules/ol/control/FullScreen.js","ol/control/Rotate":"../node_modules/ol/control/Rotate.js","ol/control/Zoom":"../node_modules/ol/control/Zoom.js","ol/format/GeoJSON":"../node_modules/ol/format/GeoJSON.js","ol/interaction/Select":"../node_modules/ol/interaction/Select.js","ol/extent":"../node_modules/ol/extent.js","ol/source/OSM":"../node_modules/ol/source/OSM.js"}],"../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -99459,7 +99470,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35713" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46221" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
