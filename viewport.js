@@ -190,7 +190,7 @@ function displayLayer(val) {
   content.append($("<h3>").text("Selected Area Stats"));
   let plot = $("<div>").addClass("side-plot");
   content.append(plot);
-  plotHist(window.layerProps.values, ".side-plot");
+  plotHist(window.layerProps.values, ".side-plot", colorRankInterpolate);
   let table = $("<table>");
   function addTableRow(thing, val) {
     let row = $("<tr>");
@@ -249,11 +249,11 @@ window.downloadMap = function() {
 
 var clear = [0, 0, 0, 0];
 var transparent = [255, 255, 255, 0.2];
-var one = [56, 168, 0, 255];
-var two = [139, 209, 0, 255];
-var three = [255, 255, 0, 255];
-var four = [255, 170, 0, 255];
-var five = [255, 0, 0, 255];
+var one = [56, 168, 0, 0.7];
+var two = [139, 209, 0, 0.7];
+var three = [255, 255, 0, 0.7];
+var four = [255, 170, 0, 0.7];
+var five = [255, 0, 0, 0.7];
 
 function colorRankInterpolate(rank) {
   if (rank < 0.8) {
@@ -357,9 +357,8 @@ function colorStyle(feature) {
       var stroke = null;
     } else {
       var stroke = new Stroke({
-        width: 0,
+        width: 2,
         color: color,
-        opacity: 0.2
       });
     }
     return new Style({
