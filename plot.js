@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
-export function plotHist(data, target) {
+export function plotHist(data, target, colorFunc) {
   var margin = { top: 10, right: 30, bottom: 50, left: 60 },
-    width = 240 - margin.left - margin.right,
+    width = 250 - margin.left - margin.right,
     height = 220 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
@@ -65,21 +65,28 @@ export function plotHist(data, target) {
     .attr("height", function(d) {
       return height - y(d.length);
     })
-    .style("fill", "#003c88");
+    .style("fill", function(d) {
+      // return "rgb("+d.x0*40+",0,0)";
+      let color = colorFunc(d.x0);
+      return "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
+    })
+    .attr("stroke-width", 1)
+    .attr("stroke", "black");
 
   svg
     .append("text")
     .attr("class", "x label")
     .attr("text-anchor", "center")
-    .attr("x", width  / 2.5)
+    .attr("x", width / 2.5)
     .attr("y", height + margin.top + margin.bottom / 2)
     .text("Rank");
 
-    svg.append("text")
+  svg
+    .append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
     .attr("y", 30)
-    .attr("dy", -margin.left - 20)
+    .attr("dy", -margin.left - 14)
     .attr("transform", "rotate(-90)")
     .text("Number of Cells");
 }
