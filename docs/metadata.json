@@ -57,13 +57,13 @@
         "j": {
             "nickname": "Erosion Susceptibility",
             "layerType": "ind",
-            "abstract": "This data table defines the Connecticut coastal vulnerability by erosion susceptibility.  It has been divided in different categories, ranking from one (less vulnerable) to five (most vulnerable).",
+            "abstract": "This data table defines the Connecticut coastal vulnerability of Erosion Susceptibility.  It has been divided in different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/EROSION_SUSCEPTIBILITY_FGDC_Plus.htm"
         },
         "k": {
             "nickname": "Engineering Frontage",
             "layerType": "ind",
-            "abstract": "Add metadata later.",
+            "abstract": "This data table defines the Connecticut coastal vulnerability given by coastal structure (CS). The biggest CS (area) in the features is described in the field ATRIBUTE and SUBCLASS. It has been divided in different categories, ranking from1 (less vulnerable) to 4 (most vulnerable). If the feature does not have rank coastal structure, rank is zero and ATRIBUTE and SUBCLASS are empty.",
             "link": ""
         },
         "l": {
@@ -86,10 +86,9 @@
             "link": ""
         },
         "o": {
-            "nickname": "Building",
+            "nickname": "Structures and Buildings",
             "layerType": "ind",
-            "abstract": "Add metadata later.",
-            "link": "combination of Building critical and coastal structure"
+            "abstract": "This data table defines the Connecticut coastal vulnerability given by the combination of critical infrastructure, coastal structure and buildings. The rank is the mean between the maximum rank of critical infrastructure and building and the rank of coastal structure. It has been divided in different categories, ranking from1 (less vulnerable) to 4 (most vulnerable). If the feature does not have rank coastal structure, rank is zero."
         },
         "p": {
             "nickname": "Median Household Income",
@@ -159,7 +158,7 @@
         "ab": {
             "nickname": "Hydraulic Connectivity",
             "layerType": "ind",
-            "abstract": "Add metadata later.",
+            "abstract": "This data table defines the Connecticut coastal vulnerability given hydrology structure. The presence of hydrology structures in each features are described in the field name. It has been divided in different categories, ranking from1 (less vulnerable) to 5 (most vulnerable). If the feature does not have hydrology structure rank is zero and name is empty.",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/HYDROGRAPHY_POLY_FGDC_Plus.htm"
         },
         "bb": {
@@ -214,43 +213,43 @@
             "link": "https://nationalmap.gov/small_scale/atlasftp.html#impe48i"
         },
         "kb": {
-            "nickname": "Geometric Mean Habitat",
+            "nickname": "Natural Habitat Exposure",
             "layerType": "out",
-            "abstract": "",
+            "abstract": "This layer provides a composite measure of natural habitat vulnerability.",
             "sup": "",
             "link": ""
         },
         "lb": {
-            "nickname": "Critical Infrastructure",
+            "nickname": "Structural Exposure",
             "layerType": "out",
-            "abstract": "",
+            "abstract": "This layer provides a composite measure of coastal areas' structural exposure.",
             "sup": "",
             "link": ""
         },
         "mb": {
             "nickname": "Physical Impact",
             "layerType": "out",
-            "abstract": "",
+            "abstract": "This layer provides a composite measure of coastal areas' vulnerability to physical impacts.",
             "sup": "",
             "link": ""
         },
         "nb": {
-            "nickname": "Geometric Mean Erosion",
+            "nickname": "Erosion Exposure",
             "layerType": "out",
-            "abstract": "",
+            "abstract": "This layer provides a composite measure of coastal areas' susceptibility to erosion",
             "sup": "",
             "link": ""
         },
         "ob": {
-            "nickname": "Geometric Mean Social",
+            "nickname": "Social Exposure",
             "layerType": "out",
-            "abstract": "",
+            "abstract": "This layer provides a composite measure of the social vulnerability of coastal populaitons.",
             "sup": "",
             "link": ""
         },
         "pb": {
-            "nickname": "Geometric Mean Seawater",
-            "abstract": "",
+            "nickname": "Salt Water Intrusion Impact",
+            "abstract": "This layer provides a composite measure of the vulnerability of coastal areas to saltwater intrusion.",
             "sup": "",
             "link": ""
         }
@@ -258,8 +257,6 @@
     "layerList": [
         "Aquifer Protection Areas",
         "Building",
-        "Building",
-        "Critical Infrastructure",
         "Critical Infrastructure",
         "Disabled Population",
         "Distance from I95",
@@ -267,28 +264,30 @@
         "Elevation",
         "Employed Population",
         "Engineering Frontage",
+        "Erosion Exposure",
         "Erosion Susceptibility",
         "Foreshore Slope",
-        "Geometric Mean Erosion",
-        "Geometric Mean Habitat",
-        "Geometric Mean Seawater",
-        "Geometric Mean Social",
         "Habitat",
         "Health Insurance",
         "Hydraulic Connectivity",
         "Impervious Area",
         "Median Household Income",
+        "Natural Habitat Exposure",
         "Physical Impact",
         "Pipeline and Submerged Cables",
         "Population Density",
         "Railways",
         "Roads",
+        "Salt Water Intrusion Impact",
         "Salt Water Limits",
         "Sea Level Rise",
         "Shoreline Change Rate",
+        "Social Exposure",
         "Soil Drainage",
         "Soil Flooding",
         "Storm Surge",
+        "Structural Exposure",
+        "Structures and Buildings",
         "Surficial Aquifer Potential",
         "Surficial Material",
         "Tidal Range",
