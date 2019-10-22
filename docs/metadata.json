@@ -236,7 +236,7 @@
         "nb": {
             "nickname": "Erosion Exposure",
             "layerType": "out",
-            "abstract": "This layer provides a composite measure of coastal areas' susceptibility to erosion",
+            "abstract": "This layer provides a composite measure of coastal areas' susceptibility to erosion.",
             "sup": "",
             "link": ""
         },
