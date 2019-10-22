@@ -1,6 +1,8 @@
 // Import required OpenLayers modules. Could be replaced by NPM imports.
 import "./ui.js";
 import { plotHist } from "./plot.js";
+import { makeCompass } from "./compass";
+
 import "ol/ol.css";
 import "./viewport.css";
 import { std, mean } from "mathjs/number";
@@ -23,10 +25,16 @@ import Select from "ol/interaction/Select";
 import { extend, containsExtent, getCenter } from "ol/extent";
 import { toLonLat } from "ol/proj";
 import OSM from "ol/source/OSM";
+import { defaults as defaultControls, Control } from "ol/control";
 window.selectionType = "Connecticut";
 window.townSelection = "";
 window.cogSelection = "";
 window.customSelection = "";
+
+var compassElement = $("#compass")[0];
+makeCompass(compassElement, function(theta) {
+  map.getView().setRotation(-theta);
+});
 
 var container = $("#popup");
 
@@ -183,10 +191,12 @@ function displayLayer(val) {
     );
   }
   content.append($("<p>").text(abstract));
-  if (sup != null) {
-    content.append(sup);
-  }
-
+  // if (sup != null) {
+  //   content.append(sup);
+  // }
+  content.append(
+    "<table><tr><td>Rank</td><td>Meaning (Units)</td></tr><tr><td>1</td><td>3.4</td></tr><tr><td>2</td><td>10</td></tr><tr><td>3</td><td>12.1</td></tr><tr><td>4</td><td>14.2</td></tr><tr><td>5</td><td>16.3</td></tr></table>"
+  );
   content.append($("<h3>").text("Selected Area Stats"));
   let plot = $("<div>").addClass("side-plot");
   content.append(plot);
@@ -254,8 +264,19 @@ var two = [139, 209, 0, 0.7];
 var three = [255, 255, 0, 0.7];
 var four = [255, 170, 0, 0.7];
 var five = [255, 0, 0, 0.7];
+// function setColors() {
+//   var clear = [0, 0, 0, 0];
+//   var transparent = [255, 255, 255, 0.2];
+//   var one = [56, 168, 0, window.trans];
+//   var two = [139, 209, 0, window.trans];
+//   var three = [255, 255, 0, window.trans];
+//   var four = [255, 170, 0, window.trans];
+//   var five = [255, 0, 0, window.trans];
+// }
+// setColors();
 
 function colorRankInterpolate(rank) {
+  // setColors();
   if (rank < 0.8) {
     return transparent;
   } else if (rank < 1) {
@@ -358,7 +379,7 @@ function colorStyle(feature) {
     } else {
       var stroke = new Stroke({
         width: 2,
-        color: color,
+        color: color
       });
     }
     return new Style({
@@ -385,6 +406,15 @@ var streetLayer = new TileLayer({
   source: new OSM()
 });
 
+// var satLayer = new TileLayer({
+//   source: new OSM({
+//     url: "http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+//     // attributions: [
+//     //     new ol.Attribution({ html: '© Google' }),
+//     //     new ol.Attribution({ html: '<a href="https://developers.google.com/maps/terms">Terms of Use.</a>' })
+//     // ]
+//   })
+// });
 var satLayer = new TileLayer({
   source: new TileArcGISRest({
     params: {
@@ -409,11 +439,6 @@ var map = new Map({
     // Modify fullscreen button to include sidebars
     new FullScreen({
       source: $("#viewer")[0]
-    }),
-    // Add North arrow
-    new Rotate({
-      autoHide: false,
-      tipLabel: "North"
     })
   ],
   target: "map",
@@ -573,6 +598,7 @@ var selectedBounds = {
       // no extent has been set
       if (this.minX == null) {
         let shrinkProp = 0.8;
+        let shrinkBottom = 0.4;
         let viewExtent = map.getView().calculateExtent();
 
         let centerX = (viewExtent[0] + viewExtent[2]) * 0.5;
@@ -581,7 +607,7 @@ var selectedBounds = {
         let spanY = viewExtent[3] - viewExtent[1];
 
         this.minX = centerX - 0.5 * shrinkProp * spanX;
-        this.minY = centerY - 0.5 * shrinkProp * spanY;
+        this.minY = centerY - 0.5 * shrinkBottom * spanY;
         this.maxX = centerX + 0.5 * shrinkProp * spanX;
         this.maxY = centerY + 0.5 * shrinkProp * spanY;
       }
@@ -660,7 +686,7 @@ var selectedBounds = {
     let innerStyle = new Style({
       stroke: new Stroke({
         width: 4,
-        color: [0, 60, 136, 1]
+        color: "#325F90" //[0, 60, 136, 1]
       }),
       fill: null
     });
@@ -884,7 +910,6 @@ var selectStyle = function(feature) {
   }
 };
 
-// $(document).ready(function() {
 var select = new Select({
   style: selectStyle
 });
@@ -924,4 +949,3 @@ select.on("select", function(e) {
 });
 
 $("#popup-closer").click(closePopup);
-// });

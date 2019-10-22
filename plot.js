@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
 export function plotHist(data, target, colorFunc) {
-  var margin = { top: 10, right: 30, bottom: 50, left: 60 },
-    width = 250 - margin.left - margin.right,
+  var margin = { top: 10, right: 0, bottom: 50, left: 60 },
+    width = 220 - margin.left - margin.right,
     height = 220 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page

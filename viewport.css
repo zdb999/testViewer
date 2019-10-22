@@ -49,7 +49,7 @@ body {
   float: left;
   margin: 0 auto;
   word-wrap: normal;
-  width: 260px;
+  width: 280px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -63,7 +63,7 @@ body {
   position: relative;
   float: right;
   background: white;
-  width: 260px;
+  width: 300px;
   overflow-y: auto;
 }
 
@@ -416,4 +416,13 @@ body {
 
 .col-info tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+#compass {
+  position: relative;
+  z-index: 15;
+  height: 120px;
+  width: 120px;
+  bottom: 150px;
+  left: 0px;
 }

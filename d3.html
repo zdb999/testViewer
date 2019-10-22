@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.9.0/d3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>D3 stuff</title>
+  </head>
+
+  <body>
+    <div id="target"></div>
+    <script>
+      function makeColorScale(target, colors, width, height) {
+        var svg = d3
+          .select(target)
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height);
+
+        //Append a defs (for definition) element to your SVG
+        var defs = svg.append("defs");
+
+        //Append a linearGradient element to the defs and give it a unique id
+        var linearGradient = defs
+          .append("linearGradient")
+          .attr("id", "linear-gradient");
+
+        //Horizontal gradient
+        linearGradient
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "0%");
+
+        //A color scale
+        var colorScale = d3.scaleLinear().range(colors);
+
+        //Append multiple color stops by using D3's data/enter step
+        linearGradient
+          .selectAll("stop")
+          .data(colorScale.range())
+          .enter()
+          .append("stop")
+          .attr("offset", function(d, i) {
+            return i / (colorScale.range().length - 1);
+          })
+          .attr("stop-color", function(d) {
+            return d;
+          });
+
+        //Draw the rectangle and fill with gradient
+        svg
+          .append("rect")
+          .attr("width", width)
+          .attr("height", height)
+          .style("fill", "url(#linear-gradient)");
+      }
+
+      makeColorScale($("#target")[0], [
+        "#2c7bb6",
+        "#00a6ca",
+        "#00ccbc",
+        "#90eb9d",
+        "#ffff8c",
+        "#f9d057",
+        "#f29e2e",
+        "#e76818",
+        "#d7191c"
+      ],100,10);
+    </script>
+  </body>
+</html>

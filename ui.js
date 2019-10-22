@@ -1,6 +1,6 @@
 $.widget("custom.combobox", {
   options: {
-    label: "Thing",
+    label: "Thing"
   },
 
   _create: function() {
@@ -20,19 +20,15 @@ $.widget("custom.combobox", {
       .appendTo(this.wrapper)
       .val(value)
       .attr("title", "")
-      .focus(
-        function () {
-          this.currentVal = $(this).val();
-          $(this).val("");
+      .focus(function() {
+        this.currentVal = $(this).val();
+        $(this).val("");
+      })
+      .blur(function() {
+        if ($(this).val() == "") {
+          $(this).val(this.currentVal);
         }
-      )
-      .blur(
-        function () {
-          if ($(this).val() == "") {
-            $(this).val(this.currentVal);
-          }
-        }
-      )
+      })
       .addClass("custom-combobox-input ui-widget ui-widget-content")
       .autocomplete({
         delay: 0,
@@ -160,7 +156,8 @@ $.widget("custom.prop_slider", {
     min: 10,
     max: 90,
     step: 10,
-    value: 50
+    value: 50,
+    // callback: function () {return true},
   },
 
   _create: function() {
@@ -175,6 +172,8 @@ $.widget("custom.prop_slider", {
       class: "slider-handle ui-slider-handle"
     });
 
+    // callback(this.options.value);
+
     slider_bar.append(slider_bar_handle);
     slider_bar.slider({
       min: this.options.min,
@@ -186,6 +185,7 @@ $.widget("custom.prop_slider", {
       },
       slide: function(event, ui) {
         slider_bar_handle.text(ui.value + "%");
+        // callback(ui.value);
       }
     });
     slider_bar.appendTo(bar_container);
@@ -218,6 +218,16 @@ $("#thing-slider").prop_slider({
   left: "Thing",
   right: "Other Thing"
 });
+
+// $("#trans-slider").prop_slider({
+//   left: "More Transparent",
+//   right: "Less Transparent",
+//   min: 0,
+//   max: 100,
+//   step: 20,
+//   value: 70,
+//   // callback: function(trans) {window.trans = trans},
+// });
 
 // Function to adjust screen arrangement for mobile
 // iff device has a small screen
