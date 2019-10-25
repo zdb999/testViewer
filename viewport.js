@@ -2,7 +2,7 @@
 import "./ui.js";
 import { plotHist } from "./plot.js";
 import { makeCompass } from "./compass";
-
+import { makeColorScale } from "./colorbar";
 import "ol/ol.css";
 import "./viewport.css";
 import { std, mean } from "mathjs/number";
@@ -257,44 +257,102 @@ window.downloadMap = function() {
   map.renderSync();
 };
 
-var clear = [0, 0, 0, 0];
-var transparent = [255, 255, 255, 0.2];
-var one = [56, 168, 0, 0.7];
-var two = [139, 209, 0, 0.7];
-var three = [255, 255, 0, 0.7];
-var four = [255, 170, 0, 0.7];
-var five = [255, 0, 0, 0.7];
-// function setColors() {
-//   var clear = [0, 0, 0, 0];
-//   var transparent = [255, 255, 255, 0.2];
-//   var one = [56, 168, 0, window.trans];
-//   var two = [139, 209, 0, window.trans];
-//   var three = [255, 255, 0, window.trans];
-//   var four = [255, 170, 0, window.trans];
-//   var five = [255, 0, 0, window.trans];
-// }
-// setColors();
+function setColors(scheme, transparency) {
+  var outScheme = {
+    clear: [0, 0, 0, 0],
+    transparent: [255, 255, 255, transparency * 0.3],
+    one: scheme.one.slice(0, 3),
+    two: scheme.two.slice(0, 3),
+    three: scheme.three.slice(0, 3),
+    four: scheme.four.slice(0, 3),
+    five: scheme.five.slice(0, 3),
+    name: scheme.name,
+    code: scheme.code,
+    transparency: transparency
+  };
+  outScheme.one.push(transparency);
+  outScheme.two.push(transparency);
+  outScheme.three.push(transparency);
+  outScheme.four.push(transparency);
+  outScheme.five.push(transparency);
+
+  window.colorScheme = outScheme;
+  updateLayer();
+}
+var scheme1 = {
+  name: "Scheme 1",
+  code: "a",
+  one: [56, 168, 0],
+  two: [139, 209, 0],
+  three: [255, 255, 0],
+  four: [255, 170, 0],
+  five: [255, 0, 0]
+};
+
+var scheme2 = {
+  name: "Scheme 2",
+  code: "b",
+  one: [255, 255, 204],
+  two: [161, 218, 180],
+  three: [65, 182, 196],
+  four: [44, 127, 184],
+  five: [37, 52, 148]
+};
+
+var scheme3 = {
+  name: "Scheme 3",
+  code: "c",
+  one: [241, 238, 246],
+  two: [215, 181, 216],
+  three: [223, 101, 176],
+  four: [221, 28, 119],
+  five: [152, 0, 67]
+};
+
+setColors(scheme1, 0.7);
+
+$("#test-box").colorbox({
+  data: [scheme1, scheme2, scheme3],
+  callback: setColors
+});
+$("#trans-slider").prop_slider({
+  left: "Transparent",
+  right: "Solid",
+  callback: function(value) {
+    setColors(window.colorScheme, value);
+    if (vectorLayer != null) {
+      vectorLayer.changed();
+    }
+  }
+});
 
 function colorRankInterpolate(rank) {
-  // setColors();
   if (rank < 0.8) {
-    return transparent;
+    return window.colorScheme.transparent;
   } else if (rank < 1) {
-    return [56, 168, 0, 255];
+    return window.colorScheme.one;
   } else if (rank < 2) {
     var prop = rank - 1;
-    return one.map((e, i) => (1 - prop) * e + prop * two[i]);
+    return window.colorScheme.one.map(
+      (e, i) => (1 - prop) * e + prop * window.colorScheme.two[i]
+    );
   } else if (rank < 3) {
     var prop = rank - 2;
-    return two.map((e, i) => (1 - prop) * e + prop * three[i]);
+    return window.colorScheme.two.map(
+      (e, i) => (1 - prop) * e + prop * window.colorScheme.three[i]
+    );
   } else if (rank < 4) {
     var prop = rank - 3;
-    return three.map((e, i) => (1 - prop) * e + prop * four[i]);
+    return window.colorScheme.three.map(
+      (e, i) => (1 - prop) * e + prop * window.colorScheme.four[i]
+    );
   } else if (rank < 5) {
     var prop = rank - 4;
-    return four.map((e, i) => (1 - prop) * e + prop * five[i]);
+    return window.colorScheme.four.map(
+      (e, i) => (1 - prop) * e + prop * window.colorScheme.five[i]
+    );
   } else {
-    return five;
+    return window.colorScheme.five;
   }
 }
 
@@ -372,9 +430,9 @@ function colorStyle(feature) {
     if (shouldShowFeature(feature)) {
       var color = colorRankInterpolate(rank);
     } else {
-      var color = clear;
+      var color = window.colorScheme.clear;
     }
-    if (color == transparent) {
+    if (color == window.colorScheme.transparent) {
       var stroke = null;
     } else {
       var stroke = new Stroke({

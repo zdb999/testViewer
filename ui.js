@@ -1,3 +1,82 @@
+import { makeColorScale } from "./colorbar";
+
+$.widget("custom.colorbox", {
+  options: {
+    data: ["Yes", "No"],
+    label: "Set Color Scheme",
+    callback: function() {}
+  },
+
+  _create: function() {
+    var menuShown = false;
+    var callback = this.options.callback;
+    this.wrapper = $("<div>")
+      .addClass("color-box custom-combobox")
+      .insertAfter(this.element);
+    this.element.hide();
+    var input = $("<div>")
+      .addClass(
+        "custom-combobox-input ui-widget ui-widget-content ui-autocomplete-input"
+      )
+      .appendTo(this.wrapper);
+
+    var currentBar = $("<div>");
+    input.append(currentBar);
+    makeColorScale(currentBar[0], window.colorScheme, "100%", 20);
+
+    this.dropdownButton = $("<a>")
+      .button({
+        icons: {
+          primary: "ui-icon-triangle-1-s"
+        },
+        text: false
+      })
+      .removeClass("ui-corner-all")
+      .addClass("custom-combobox-toggle ui-corner-right")
+      .tooltip()
+      .attr("role", "button")
+      .on("click", toggle)
+      .on("blur", collapse)
+      .appendTo(this.wrapper);
+
+    function collapse() {
+      menu.hide();
+      menuShown = false;
+    }
+    function toggle() {
+      if (menuShown) {
+        collapse();
+      } else {
+        menu.show().position({
+          of: input,
+          my: "left top",
+          at: "left bottom",
+          collision: "none"
+        });
+        menuShown = true;
+      }
+    }
+
+    var menu = $("<ul>");
+    this.options.data.forEach(function(element, index) {
+      let bar = $("<div>").appendTo(menu);
+      makeColorScale(bar[0], element, 180, 20);
+      bar.data("scheme", element);
+      bar.attr("alt", element.name).click(function() {
+        collapse();
+        let colorScheme = $(this).data("scheme");
+        currentBar.html("");
+        makeColorScale(currentBar[0], colorScheme, "100%", 20);
+        callback(colorScheme, window.colorScheme.transparency);
+      });
+    });
+
+    menu.menu();
+    menu.addClass("color-menu ui-autocomplete").hide();
+    menu.appendTo(this.wrapper);
+  }
+});
+
 $.widget("custom.combobox", {
   options: {
     label: "Thing"
@@ -14,7 +93,7 @@ $.widget("custom.combobox", {
 
   _createAutocomplete: function() {
     var selected = this.element.children(":selected");
-    value = selected.val() ? selected.text() : "";
+    var value = selected.val() ? selected.text() : "";
 
     this.input = $("<input>")
       .appendTo(this.wrapper)
@@ -92,7 +171,7 @@ $.widget("custom.combobox", {
     var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
     response(
       this.element.children("option").map(function() {
-        var text = $(this).text();
+        var text = $(this).html();
         var type = $(this).data("type");
         if (this.value && (!request.term || matcher.test(text)))
           return {
@@ -157,10 +236,14 @@ $.widget("custom.prop_slider", {
     max: 90,
     step: 10,
     value: 50,
-    // callback: function () {return true},
+    callback: function(value) {
+      return true;
+    }
   },
 
   _create: function() {
+    var callback = this.options.callback;
+    callback(this.options.value / 100);
     this.element.addClass("slider-container");
     var bar_container = $("<div>", {
       class: "slider-bar-container"
@@ -171,8 +254,6 @@ $.widget("custom.prop_slider", {
     var slider_bar_handle = $("<div>", {
       class: "slider-handle ui-slider-handle"
     });
-
-    // callback(this.options.value);
 
     slider_bar.append(slider_bar_handle);
     slider_bar.slider({
@@ -185,7 +266,9 @@ $.widget("custom.prop_slider", {
       },
       slide: function(event, ui) {
         slider_bar_handle.text(ui.value + "%");
-        // callback(ui.value);
+      },
+      stop: function(event, ui) {
+        callback(ui.value / 100);
       }
     });
     slider_bar.appendTo(bar_container);

@@ -393,13 +393,6 @@ body {
   margin-right: -50%;
   transform: translate(-50%, -50%);
 }
-/* 
-.side-plot {
-  height: 250px;
-  width: 300px;
-  padding: 0;
-  margin: 0;
-} */
 
 .modebar {
   display: none !important;
@@ -425,4 +418,12 @@ body {
   width: 120px;
   bottom: 150px;
   left: 0px;
+}
+
+.color-menu {
+  max-height: 50px;
+}
+
+.color-menu div {
+  padding-bottom: 20px;
 }

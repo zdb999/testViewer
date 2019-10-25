@@ -11,7 +11,7 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-    <title>Vulnerability Assessment</title>
+    <title>Coastal Vulnerability Assessment</title>
   </head>
 
   <body>
@@ -74,7 +74,8 @@
           <input type="radio" name="layer" value="ind" checked /> Individual
           Layers<br />
           <input type="radio" name="layer" value="out" /> Output Layers<br />
-          <input type="radio" name="layer" value="overall" /> Overall<br />
+          <input type="radio" name="layer" value="overall" /> Weighted
+          Exposure<br />
         </div>
         <div id="overall-layer-options" class="collapsible hori-margin">
           <h3>Analysis Options</h3>
@@ -111,11 +112,13 @@
           <input type="radio" name="base" value="sat" checked /> Satellite<br />
           <input type="radio" name="base" value="street" /> Street Map<br />
         </div>
-        <!-- <div id="view-options" class="hori-margin">
-            <h3>View Options</h3>
-            <div>Change the transparency.</div>
-            <div id="trans-slider"></div>
-          </div> -->
+        <div id="view-options" class="hori-margin">
+          <h3>View Options</h3>
+          <p>Change the map display.</p>
+          <div id="test-box"></div>
+          <div id="trans-slider"></div>
+          <br>
+        </div>
         <!-- <div id='score-calc-approach' class='hori-margin'>
                 <h3>Score Calculation Approach</h3>
                 <p>
@@ -150,11 +153,11 @@
                     <button onclick="downloadMap()">↓</button>
                 </div> -->
           <br />
-          <h3>Vulnerability Assessment</h3>
+          <h3>Coastal Vulnerability Assessment</h3>
           <p>
-            The vulnerability assessment can help you make real decisions. This
-            is not really a description I can write right now, as I don't have
-            the background knowledge. However, we can fill this in later.
+            This viewer examines the direct and indirect future impacts of sea
+            level rise on Connecticut's coastal towns. More description will
+            follow, as necessary.
           </p>
           <h3>Other Resources</h3>
           <p>
