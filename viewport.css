@@ -412,12 +412,12 @@ body {
 }
 
 #compass {
-  position: relative;
+  position: absolute;
   z-index: 15;
   height: 120px;
   width: 120px;
-  bottom: 150px;
-  left: 0px;
+  bottom: 20px;
+  left: 240px;
 }
 
 .color-menu {
