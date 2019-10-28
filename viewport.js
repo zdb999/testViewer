@@ -179,6 +179,7 @@ function displayLayer(val) {
   let abstract = window.metadata.layers[val].abstract;
   let link = window.metadata.layers[val].link;
   let metalink = window.metadata.layers[val].metalink;
+  let zipfile = window.metadata.layers[val].zipfile;
 
   content.append($("<h2>").text(layerName));
   var linkList = $("<ul>");
@@ -198,6 +199,17 @@ function displayLayer(val) {
         $("<a>")
           .text("Metadata")
           .attr("href", metalink)
+          .attr("target", 'target="_blank"')
+      )
+    );
+  }
+
+  if (metalink != "") {
+    linkList.append(
+      $("<li>").append(
+        $("<a>")
+          .text("Download Layer")
+          .attr("href", zipfile)
           .attr("target", 'target="_blank"')
       )
     );
