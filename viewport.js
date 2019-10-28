@@ -179,17 +179,31 @@ function displayLayer(val) {
   let layerName = window.metadata.layers[val].nickname;
   let abstract = window.metadata.layers[val].abstract;
   let link = window.metadata.layers[val].link;
-  let sup = window.metadata.layers[val].sup;
+  let metalink = window.metadata.layers[val].metalink;
 
   content.append($("<h2>").text(layerName));
+  var linkList = $("<ul>");
   if (link != "") {
-    content.append(
-      $("<a>")
-        .text("Source Link")
-        .attr("href", link)
-        .attr("target", 'target="_blank"')
+    linkList.append(
+      $("<li>").append(
+        $("<a>")
+          .text("Source Link")
+          .attr("href", link)
+          .attr("target", 'target="_blank"')
+      )
     );
   }
+  if (metalink != "") {
+    linkList.append(
+      $("<li>").append(
+        $("<a>")
+          .text("Metadata")
+          .attr("href", metalink)
+          .attr("target", 'target="_blank"')
+      )
+    );
+  }
+  content.append(linkList);
   content.append($("<p>").text(abstract));
   // if (sup != null) {
   //   content.append(sup);
@@ -318,6 +332,7 @@ $("#test-box").colorbox({
 $("#trans-slider").prop_slider({
   left: "Transparent",
   right: "Solid",
+  max: 100,
   callback: function(value) {
     setColors(window.colorScheme, value);
     if (vectorLayer != null) {
