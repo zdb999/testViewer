@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "jquery-ui-dist": "^1.12.1"
+    "html-to-image": "^0.1.1",
+    "jquery-ui-dist": "^1.12.1",
+    "jspdf": "^1.5.3"
   },
   "scripts": {
     "dev": "cp data.json dist/data.json & cp metadata.json ./dist/metadata.json & parcel viewport.html",

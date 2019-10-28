@@ -25,7 +25,10 @@ import Select from "ol/interaction/Select";
 import { extend, containsExtent, getCenter } from "ol/extent";
 import { toLonLat } from "ol/proj";
 import OSM from "ol/source/OSM";
-import { defaults as defaultControls, Control } from "ol/control";
+import { defaults as defaultControls, Control, ScaleLine } from "ol/control";
+import { toJpeg } from "html-to-image";
+import jsPDF from "jspdf";
+
 window.selectionType = "Connecticut";
 window.townSelection = "";
 window.cogSelection = "";
@@ -208,7 +211,7 @@ function displayLayer(val) {
     linkList.append(
       $("<li>").append(
         $("<a>")
-          .text("Download Layer")
+          .text("Download GIS Layer")
           .attr("href", zipfile)
           .attr("target", 'target="_blank"')
       )
@@ -219,9 +222,9 @@ function displayLayer(val) {
   // if (sup != null) {
   //   content.append(sup);
   // }
-  content.append(
-    "<table><tr><td>Rank</td><td>Meaning (Units)</td></tr><tr><td>1</td><td>3.4</td></tr><tr><td>2</td><td>10</td></tr><tr><td>3</td><td>12.1</td></tr><tr><td>4</td><td>14.2</td></tr><tr><td>5</td><td>16.3</td></tr></table>"
-  );
+  // content.append(
+  //   "<table><tr><td>Rank</td><td>Meaning (Units)</td></tr><tr><td>1</td><td>3.4</td></tr><tr><td>2</td><td>10</td></tr><tr><td>3</td><td>12.1</td></tr><tr><td>4</td><td>14.2</td></tr><tr><td>5</td><td>16.3</td></tr></table>"
+  // );
   content.append($("<h3>").text("Selected Area Stats"));
   let plot = $("<div>").addClass("side-plot");
   content.append(plot);
@@ -320,7 +323,7 @@ var scheme2 = {
   one: [100, 243, 255],
   two: [120, 94, 240],
   three: [220, 138, 127],
-  four: [254,97, 0],
+  four: [254, 97, 0],
   five: [255, 176, 0]
 };
 
@@ -1024,3 +1027,74 @@ select.on("select", function(e) {
 });
 
 $("#popup-closer").click(closePopup);
+
+var scaleBarSteps = 4;
+var scaleBarText = true;
+var control;
+document.body.style.cursor = 'progress';
+
+function scaleControl(units) {
+  control = new ScaleLine({
+    units: units,
+    bar: true,
+    steps: scaleBarSteps,
+    text: scaleBarText,
+    minWidth: 140
+  });
+  return control;
+}
+// map.addControl(scaleControl("metric"));
+// map.addControl(scaleControl("us"));
+
+// document.body.style.cursor = "progress";
+
+// toJpeg(map.getViewport(), exportOptions).then(function(dataUrl) {
+//   var pdf = new jsPDF("landscape", undefined, format);
+// pdf.addImage(dataUrl, "JPEG", 0, 0, dim[0], dim[1]);
+//   pdf.save("map.pdf");
+//   // Reset original map size
+//   map.setSize(size);
+//   map.getView().setResolution(viewResolution);
+//   exportButton.disabled = false;
+//   document.body.style.cursor = "auto";
+// });
+
+var exportOptions = {
+  filter: function(element) {
+    return true;
+    // return element.className.indexOf("ol-control") === -1;
+  }
+};
+
+// var format = document.getElementById('format').value;
+// var resolution = document.getElementById('resolution').value;
+var resolution = 150;
+var dim = [594, 420];
+var width = Math.round((dim[0] * resolution) / 25.4);
+var height = Math.round((dim[1] * resolution) / 25.4);
+var size = map.getSize();
+var viewResolution = map.getView().getResolution();
+
+window.fire = function() {
+  updateLayer();
+  // Set print size
+  var printSize = [width, height];
+  map.setSize(printSize);
+  var scaling = Math.min(width / size[0], height / size[1]);
+  map.getView().setResolution(viewResolution / scaling);
+  map.once("rendercomplete", function() {
+    exportOptions.width = width;
+    exportOptions.height = height;
+    toJpeg(map.getViewport(), exportOptions).then(function(dataUrl) {
+      var pdf = new jsPDF("landscape", undefined, "A2");
+      pdf.addImage(dataUrl, "JPEG", 0, 0, dim[0], dim[1]);
+      pdf.save("map.pdf");
+      // Reset original map size
+      map.setSize(size);
+      map.getView().setResolution(viewResolution);
+      // exportButton.disabled = false;
+      document.body.style.cursor = "auto";
+      console.log("Ok ok");
+    });
+  });
+};

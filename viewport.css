@@ -427,3 +427,12 @@ body {
 .color-menu div {
   padding-bottom: 20px;
 }
+
+.ol-scale-bar {
+  left: auto;
+  right: 20px;
+}
+
+.col-info ul {
+  padding-left: 30px;
+}
