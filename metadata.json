@@ -5,278 +5,334 @@
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability of critical infrastructure.  Those have been divided in two different categories: 4 (private school, UPS, childcare, public school)  and 5 (Airport,  Amtrak,  police, fire station, hospital).",
             "link": "http://hudgis-hud.opendata.arcgis.com/",
-            "metalink": "metadata_files/metadata_criticalinfra.docx"
+            "metalink": "metadata_files/metadata_criticalinfra.docx",
+            "path": "./input/criticalinfrastructurenNEW.shp"
         },
         "b": {
             "nickname": "Disabled Population",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by the population with disability. The number of people have been divided in five categories: ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://www.census.gov/geo/maps-data/data/tiger-data.html\u00a0",
-            "metalink": "metadata_files/metadata_disability.docx"
+            "metalink": "metadata_files/metadata_disability.docx",
+            "path": "./input/disabilityNEW.shp"
         },
         "d": {
             "nickname": "Building",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability of buildings. The area occupied by buildings in each square of the grid has been divided in different categories, ranking from 2 (less vulnerable) to 4 (most vulnerable).",
             "link": "",
-            "metalink": "metadata_files/metadata_buildings.docx"
+            "metalink": "metadata_files/metadata_buildings.docx",
+            "path": "./input/zBuldingNEW.shp"
         },
         "e": {
             "nickname": "Young Population",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by the population with minor age. The number of people have been divided in five categories: ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://www.census.gov/geo/maps-data/data/tiger-data.html",
-            "metalink": "metadata_files/metadata_minor.docx"
+            "metalink": "metadata_files/metadata_minor.docx",
+            "path": "./input/minorNEW.shp"
         },
         "f": {
             "nickname": "Population Density",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by the population density. The number of people have been divided in five categories: ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://www.census.gov/geo/maps-data/data/tiger-data.html",
-            "metalink": "metadata_files/metadata_populationdensity.docx"
+            "metalink": "metadata_files/metadata_populationdensity.docx",
+            "path": "./input/track_populationNEW.shp"
         },
         "g": {
             "nickname": "Roads",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability due to streets elevation. Streets have been divided in five different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "http://magic.lib.uconn.edu/magic_2/vector/37800/primarysecondaryroadct_37800_0000_2010_s100_census_1_t.htm",
-            "metalink": "metadata_files/metadata_streets.docx"
+            "metalink": "metadata_files/metadata_streets.docx",
+            "path": "./input/streetsNEW.shp"
         },
         "h": {
             "nickname": "Elevation",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given due to land elevation. The number of people have been divided in five categories: ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "metadata_files/metadata_elevation.docx",
-            "metalink": ""
+            "metalink": "",
+            "path": "./input/elevation.shp"
         },
         "i": {
             "nickname": "Health Insurance",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by the population with health insurance. The number of people have been divided in five categories: ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://www.census.gov/geo/maps-data/data/tiger-data.html",
-            "metalink": "metadata_files/metadata_health_insurance.docx"
+            "metalink": "metadata_files/metadata_health_insurance.docx",
+            "path": "./input/healtinscuranceNEW.shp"
         },
         "j": {
             "nickname": "Erosion Susceptibility",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability of Erosion Susceptibility.  It has been divided in different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/EROSION_SUSCEPTIBILITY_FGDC_Plus.htm",
-            "metalink": "metadata_files/matadata_erosion_suscep.docx"
+            "metalink": "metadata_files/matadata_erosion_suscep.docx",
+            "path": "./input/EROSION_SUSCEPTIBILITYNEW.shp"
         },
         "k": {
             "nickname": "Engineering Frontage",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by coastal structure (CS). The biggest CS (area) in the features is described in the field ATRIBUTE and SUBCLASS. It has been divided in different categories, ranking from1 (less vulnerable) to 4 (most vulnerable). If the feature does not have rank coastal structure, rank is zero and ATRIBUTE and SUBCLASS are empty.",
             "link": "",
-            "metalink": "metadata_files/metadata_coastalstructure.docx"
+            "metalink": "metadata_files/metadata_coastalstructure.docx",
+            "path": "./input/coastalstructureNEW.shp"
         },
         "l": {
             "nickname": "Habitat",
             "layerType": "ind",
             "abstract": "This composite layer reflects the vulnerability of Connecticut's habitat, including data about forests, hydrology, eelgrass, and 'critical habitat.'",
             "link": "",
-            "metalink": "metadata_files/metadata_habitat.docx"
+            "metalink": "metadata_files/metadata_habitat.docx",
+            "path": "./input/habitatNEW.shp"
         },
         "m": {
             "nickname": "Elderly Population",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability due to the proportion of seniors in the population. The proportions of people have been divided in five categories: ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://www.census.gov/geo/maps-data/data/tiger-data.html",
-            "metalink": "metadata_files/metadata_senior.docx"
+            "metalink": "metadata_files/metadata_senior.docx",
+            "path": "./input/seniorNEW.shp"
         },
         "n": {
             "nickname": "Salt Water Limits",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability due the salt water limits. It has been divided in two categories, ranking from zero (less vulnerable, above the salt water limit) to five (most vulnerable, under the salt water limit).",
             "link": "",
-            "metalink": "metadata_files/metadata_saltwater.docx"
+            "metalink": "metadata_files/metadata_saltwater.docx",
+            "path": "./input/salt_waterNEW.shp"
         },
         "o": {
             "nickname": "Structures and Buildings",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by the combination of critical infrastructure, coastal structure and buildings. The rank is the mean between the maximum rank of critical infrastructure and building and the rank of coastal structure. It has been divided in different categories, ranking from1 (less vulnerable) to 4 (most vulnerable). If the feature does not have rank coastal structure, rank is zero.",
             "link": "",
-            "metalink": "metadata_files/metadata_CI_buildings_CS.docx"
+            "metalink": "metadata_files/metadata_CI_buildings_CS.docx",
+            "path": "./input/Bulding_CI_CSNEW.shp"
         },
         "p": {
             "nickname": "Median Household Income",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by the population income. The number of people have been divided in five categories: ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://www.census.gov/geo/maps-data/data/tiger-data.html",
-            "metalink": "metadata_files/metadata_income.docx"
+            "metalink": "metadata_files/metadata_income.docx",
+            "path": "./input/incomeNEW.shp"
         },
         "q": {
             "nickname": "Surficial Aquifer Potential",
             "layerType": "ind",
             "abstract": "This data table defines the coastal vulnerability based on surficial aquifer potential of Connecticut Coastal Cities. Surficial materials have been divided in different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/SURFICIAL_AQUIFER_POTENTIAL_FGDC_Plus.htm",
-            "metalink": "metadata_files/metadata_SURFICIAL_MATERIAL.docx"
+            "metalink": "metadata_files/metadata_SURFICIAL_MATERIAL.docx",
+            "path": "./input/SURFICIAL_AQUIFER_POTENTIALNEW.shp"
         },
         "r": {
             "nickname": "Tidal Range",
             "layerType": "ind",
             "abstract": "Add metadata later.",
             "link": "https://lisicos.uconn.edu/arcgis/rest/services/Sea_Level/lis_2016lidar/MapServer ",
-            "metalink": ""
+            "metalink": "",
+            "path": "./input/MHHWin_NAVD88NEW.shp"
         },
         "s": {
             "nickname": "Storm Surge",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by storms. Storms vulnerability have been divided in different categories, ranking from 1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://www.arcgis.com/home/item.html?id=74dfb06cac1d4af9a7f748270f38f559",
-            "metalink": "metadata_files/metadata_storm.docx"
+            "metalink": "metadata_files/metadata_storm.docx",
+            "path": "./input/inundationNEW.shp"
         },
         "u": {
             "nickname": "Aquifer Protection Areas",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability of Aquifers. Aquifer protection areas have been divided in different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/AQUIFER_PROTECTION_AREA_FGDC_Plus.htm",
-            "metalink": "metadata_files/metadata_aquifer_protection.docx"
+            "metalink": "metadata_files/metadata_aquifer_protection.docx",
+            "path": "./input/AQUIFER_PROTECTION_AREANEW.shp"
         },
         "v": {
             "nickname": "Distance from I95",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given by the distance from I95 exits. Streets have been divided in five different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "",
-            "metalink": "metadata_files/metadata_exitI95.docx"
+            "metalink": "metadata_files/metadata_exitI95.docx",
+            "path": "./input/z3I95_exits_.shp"
         },
         "w": {
             "nickname": "Surficial Material",
             "layerType": "ind",
             "abstract": "This data table defines the coastal vulnerability based on surficial material of Connecticut Coastal Cities. Surficial materials have been divided in different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/SURFICIAL_MATERIAL_POLY_FGDC_Plus.htm",
-            "metalink": "metadata_files/metadata_SURFICIAL_MATERIAL.docx"
+            "metalink": "metadata_files/metadata_SURFICIAL_MATERIAL.docx",
+            "path": "./input/SURFICIAL_MATERIALNEW.shp"
         },
         "x": {
             "nickname": "Wind Speed",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability based on the wind speed at 30(m).  It has been divided in different categories, ranking from1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://docs.digital.mass.gov/dataset/massgis-data-modeled-wind-speed-grids",
-            "metalink": "metadata_files/metadata_wind.docx"
+            "metalink": "metadata_files/metadata_wind.docx",
+            "path": "./input/windNEW.shp"
         },
         "y": {
             "nickname": "Wave Power",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability based on the wave power index.  It has been divided in different categories, ranking from1 (less vulnerable) to 5 (most vulnerable).",
             "link": "",
-            "metalink": "metadata_files/metadata_wave.docx"
+            "metalink": "metadata_files/metadata_wave.docx",
+            "path": "./input/zwawe_Ranked1.shp"
         },
         "z": {
             "nickname": "Employed Population",
             "layerType": "ind",
             "abstract": "Add metadata later.",
             "link": "https://svi.cdc.gov/data-and-tools-download.html",
-            "metalink": ""
+            "metalink": "",
+            "path": "./input/emploNEW.shp"
         },
         "ab": {
             "nickname": "Hydraulic Connectivity",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability given hydrology structure. The presence of hydrology structures in each features are described in the field name. It has been divided in different categories, ranking from1 (less vulnerable) to 5 (most vulnerable). If the feature does not have hydrology structure rank is zero and name is empty.",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/HYDROGRAPHY_POLY_FGDC_Plus.htm",
-            "metalink": "metadata_files/metadata_hydrology.docx"
+            "metalink": "metadata_files/metadata_hydrology.docx",
+            "path": "./input/HydrologyNEW.shp"
         },
         "bb": {
             "nickname": "Pipeline and Submerged Cables",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability based on the presence of Submerged Cable and Pipeline Areas.  It has been divided in two different categories, presence (rank 5) or absence (rank 0) of cable/submerged pipelines.",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/LIS_CABLES_PIPELINES_FGDC_Plus.htm",
-            "metalink": "metadata_files/metadata_cable.docx"
+            "metalink": "metadata_files/metadata_cable.docx",
+            "path": "./input/cableNEW.shp"
         },
         "db": {
             "nickname": "Shoreline Change Rate",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability due to Erosion Rate. It has been divided in different categories, ranking from one (less vulnerable) to five (most vulnerable).",
             "link": "",
-            "metalink": "metadata_files/metadata_erosion_epr.docx"
+            "metalink": "metadata_files/metadata_erosion_epr.docx",
+            "path": "./input/ERS_erosionNEW.shp"
         },
         "eb": {
             "nickname": "Soil Drainage",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability based on Soil Drainage. It has been divided in different categories, ranking from1 (less vulnerable) to 5 (most vulnerable).",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/SOILS_POLY_DATA_FGDC_Plus.htm",
-            "metalink": "metadata_files/metadata_soil_drainage.docx"
+            "metalink": "metadata_files/metadata_soil_drainage.docx",
+            "path": "./input/soil_drainageNEW.shp"
         },
         "fb": {
             "nickname": "Soil Flooding",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability based on the soil flooding class.  It has been divided in different categories, ranking from1 (less vulnerable) to 5 (most vulnerable).",
             "link": "http://www.cteco.uconn.edu/metadata/dep/document/SOILS_POLY_DATA_FGDC_Plus.htm",
-            "metalink": "metadata_files/metadata_soil_flooding.docx"
+            "metalink": "metadata_files/metadata_soil_flooding.docx",
+            "path": "./input/soil_floodingNEW.shp"
         },
         "gb": {
             "nickname": "Sea Level Rise",
             "layerType": "ind",
             "abstract": "Add metadata later.",
             "link": "",
-            "metalink": ""
+            "metalink": "",
+            "path": "./input/zslr_Ranked1.shp"
         },
         "hb": {
             "nickname": "Railways",
             "layerType": "ind",
             "abstract": "Add metadata later.",
             "link": "http://cteco.uconn.edu/metadata/dep/document/Railroad_FGDC_Plus.htm",
-            "metalink": ""
+            "metalink": "",
+            "path": "./input/AmtrackNEW.shp"
         },
         "ib": {
             "nickname": "Foreshore Slope",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability of slope. Slope has been divided in five different categories, from one (less vulnerable) to five (most vulnerable).",
             "link": "",
-            "metalink": "metadata_files/metadata_slope.docx"
+            "metalink": "metadata_files/metadata_slope.docx",
+            "path": "./input/slopeNEW.shp"
         },
         "jb": {
             "nickname": "Impervious Area",
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability due to impervious surface. Those have been divided in two categories: 1 (less vulnerable) and 5 (most vulnerable).",
             "link": "https://nationalmap.gov/small_scale/atlasftp.html#impe48i",
-            "metalink": "metadata_files/metadata_impervious.docx"
+            "metalink": "metadata_files/metadata_impervious.docx",
+            "path": "./input/zzimperviousNEW.shp"
         },
         "kb": {
             "nickname": "Natural Habitat Exposure",
             "layerType": "out",
-            "abstract": "This layer provides a composite measure of natural habitat vulnerability.",
+            "abstract": "This data table is the geometric mean computed using the following input layers: Hydrology, Habitat and Sea Level Rise.",
             "link": "",
-            "metalink": ""
+            "metalink": "metadata_files/metadata_naturalhabitat.docx",
+            "path": "./exposure/geometricmeanHabtat.shp"
         },
         "lb": {
             "nickname": "Structural Exposure",
             "layerType": "out",
-            "abstract": "This layer provides a composite measure of coastal areas' structural exposure.",
+            "abstract": "This data table is the geometric mean computed using the following input layers: Amtrak Stations, Building, Critical Infrastructure, Coastal Structure, Pipeline and Submerged Cables, Streets, Proximity to I95 and Sea Level Rise.",
             "link": "",
-            "metalink": ""
+            "metalink": "metadata_files/metadata_criticalinfra.docx",
+            "path": "./exposure/geometricmeanCriticalInfra.shp"
         },
         "mb": {
             "nickname": "Physical Impact",
             "layerType": "out",
-            "abstract": "This layer provides a composite measure of coastal areas' vulnerability to physical impacts.",
+            "abstract": "This data table is the geometric mean computed using the following input layers: Disable Population, Employed Population, Health Insurance, Young Population, Elderly Population, Population Density and Sea Level Rise.",
             "link": "",
-            "metalink": ""
+            "metalink": "metadata_files/metadata_ physicalimpact.docx",
+            "path": "./exposure/geometricmeanPhysicalImpact.shp"
         },
         "nb": {
             "nickname": "Erosion Exposure",
             "layerType": "out",
-            "abstract": "This layer provides a composite measure of coastal areas' susceptibility to erosion",
+            "abstract": "Add metadata later.",
             "link": "",
-            "metalink": ""
+            "metalink": "",
+            "path": "./exposure/geometricmeanErosion.shp"
         },
         "ob": {
             "nickname": "Social Exposure",
             "layerType": "out",
-            "abstract": "This layer provides a composite measure of the social vulnerability of coastal populaitons.",
+            "abstract": "This data table is the geometric mean computed using the following input layers: Disabled Population, Employed Population, Health Insurance, Young Population, Elderly Population, Population Density and Sea Level Rise.",
             "link": "",
-            "metalink": ""
+            "metalink": "metadata_files/metadata_socialImpacts.docx",
+            "path": "./exposure/geometricmeanSocial.shp"
         },
         "pb": {
             "nickname": "Salt Water Intrusion Impact",
-            "layerType": "",
-            "abstract": "This layer provides a composite measure of the vulnerability of coastal areas to saltwater intrusion.",
+            "layerType": "out",
+            "abstract": "This data table is the geometric mean computed using the following input layers: Disabled Population, Employed Population, Health Insurance, Young Population, Elderly Population, Population Density and Sea Level Rise.",
             "link": "",
-            "metalink": ""
+            "metalink": "metadata_files/metadata_saltwater.docx",
+            "path": "./exposure/geometricmeavsaltwater.shp"
+        },
+        "qb": {
+            "nickname": "Coastal Stressors",
+            "layerType": "out",
+            "abstract": "This data table is the geometric mean computed using the following input layers: sea level rise, wave power, storm surge, tide and wind speed at 10(m).",
+            "link": "",
+            "metalink": "",
+            "path": "./exposure/coastal_stressor.shp"
+        },
+        "rb": {
+            "nickname": "Physical Stressors",
+            "layerType": "out",
+            "abstract": "This data table is the geometric mean computed using the following input layers: elevation, slope, soil flooding, soil drainage, habitat, erosion rate, erosion susceptibility and impervious surfaces.",
+            "link": "",
+            "metalink": "metadata_files/metadata_physicalstressor.docx",
+            "path": "./exposure/physical_stressor.shp"
         }
     },
     "layerList": [
         "Aquifer Protection Areas",
         "Building",
+        "Coastal Stressors",
         "Critical Infrastructure",
         "Disabled Population",
         "Distance from I95",
@@ -294,6 +350,7 @@
         "Median Household Income",
         "Natural Habitat Exposure",
         "Physical Impact",
+        "Physical Stressors",
         "Pipeline and Submerged Cables",
         "Population Density",
         "Railways",
