@@ -120,7 +120,6 @@ $.getJSON("./metadata.json", function(data) {
   });
   window.metadata = data;
 
-  // TODO: Refactor for reusability
   jurisdiction_picker.combobox({
     label: "Select a jurisdiction",
     select: function(event, ui) {
@@ -537,7 +536,6 @@ var selectedBounds = {
   enabled: false,
 
   // Function to zoom to selected bounds
-  // TODO: make button that uses this function
   zoomTo: function() {
     map.getView().fit(this.getExtent(), {
       duration: 2000
@@ -816,13 +814,6 @@ var selectedBounds = {
   }
 };
 
-// On start, no area is selected
-// TODO: Consolodate combobox setting into a single function
-// var extentNameInput = $(".extent-box")
-//   .children(".custom-combobox")
-//   .children("input");
-// extentNameInput.val("Unselected");
-
 // Hack to fix a placement bug in OpenLayers
 var fixSizeBug = function() {
   setTimeout(function() {
@@ -884,7 +875,6 @@ $(document).bind(
   }
 );
 
-// TODO: Fix two sections on switch issue
 function radioLayerUpdate() {
   let radioVal = $("input[name='layer']:checked").val();
   var overallBox = $("#overall-layer-options");
@@ -938,7 +928,7 @@ function radioBaseUpdate() {
   }
 }
 
-// FIXME: Actually get layer input to work
+// Calls functions on layer updates
 $("input[type=radio][name=layer]").change(radioLayerUpdate);
 $("input[type=radio][name=base]").change(radioBaseUpdate);
 
