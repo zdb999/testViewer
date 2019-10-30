@@ -26,6 +26,7 @@ import { extend, containsExtent, getCenter } from "ol/extent";
 import { toLonLat } from "ol/proj";
 import OSM from "ol/source/OSM";
 import { defaults as defaultControls, Control, ScaleLine } from "ol/control";
+import XYZ from "ol/source/XYZ";
 import { toJpeg } from "html-to-image";
 import jsPDF from "jspdf";
 
@@ -252,10 +253,6 @@ function displayLayer(val) {
 
 // Change tooltip with jQuery UI
 $(document).tooltip();
-
-// Hardcodded data URLs. To be replaced later.
-var satURL =
-  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer";
 
 window.changeInfo = function(name) {
   if (name == "home") {
@@ -521,25 +518,36 @@ var vectorLayer = new VectorLayer({
 });
 
 var streetLayer = new TileLayer({
-  source: new OSM()
+  source: new XYZ({
+    attributions:
+      'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+      'rest/services/World_Street_Map/MapServer">ArcGIS</a>',
+    url:
+      "https://server.arcgisonline.com/ArcGIS/rest/services/" +
+      "World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+  })
 });
 
-// var satLayer = new TileLayer({
-//   source: new OSM({
-//     url: "http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-//     // attributions: [
-//     //     new ol.Attribution({ html: '© Google' }),
-//     //     new ol.Attribution({ html: '<a href="https://developers.google.com/maps/terms">Terms of Use.</a>' })
-//     // ]
-//   })
-// });
+
+var topoLayer = new TileLayer({
+  source: new XYZ({
+    attributions:
+      'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+      'rest/services/World_Topo_Map/MapServer">ArcGIS</a>',
+    url:
+      "https://server.arcgisonline.com/ArcGIS/rest/services/" +
+      "World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+  })
+});
+
 var satLayer = new TileLayer({
-  source: new TileArcGISRest({
-    params: {
-      LAYERS: "view:0"
-    },
-    url: satURL,
-    crossOrigin: "anonymous"
+  source: new XYZ({
+    attributions:
+      'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+      'rest/services/World_Imagery/MapServer">ArcGIS</a>',
+    url:
+      "https://server.arcgisonline.com/ArcGIS/rest/services/" +
+      "World_Imagery/MapServer/tile/{z}/{y}/{x}"
   })
 });
 
@@ -972,10 +980,13 @@ function radioBaseUpdate() {
   let radioVal = $("input[name='base']:checked").val();
   map.removeLayer(satLayer);
   map.removeLayer(streetLayer);
+  map.removeLayer(topoLayer);
   if (radioVal == "sat") {
     map.getLayers().insertAt(0, satLayer);
   } else if (radioVal == "street") {
     map.getLayers().insertAt(0, streetLayer);
+  } else if (radioVal == "topo") {
+    map.getLayers().insertAt(0, topoLayer);
   }
 }
 
@@ -1067,7 +1078,7 @@ $("#popup-closer").click(closePopup);
 var scaleBarSteps = 4;
 var scaleBarText = true;
 var control;
-document.body.style.cursor = "progress";
+// document.body.style.cursor = "progress";
 
 function scaleControl(units) {
   control = new ScaleLine({
