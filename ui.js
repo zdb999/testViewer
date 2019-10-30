@@ -236,6 +236,7 @@ $.widget("custom.prop_slider", {
     max: 90,
     step: 10,
     value: 50,
+    labelWidth: "10ch",
     callback: function(value) {
       return true;
     }
@@ -278,39 +279,21 @@ $.widget("custom.prop_slider", {
     });
 
     var left_label = $("<span>", {
-      class: "slider-left-label",
+      class: "slider-label slider-left-label",
       text: this.options.left
-    });
+    }).css("width", this.options.labelWidth);
 
     var right_label = $("<span>", {
-      class: "slider-right-label",
+      class: "slider-label slider-right-label",
       text: this.options.right
-    });
+    }).css("width", this.options.labelWidth);
 
     labels_container.append(left_label).append(right_label);
     labels_container.appendTo(this.element);
   }
 });
 
-$("#environment-man-slider").prop_slider({
-  left: "People",
-  right: "Environment"
-});
 
-$("#thing-slider").prop_slider({
-  left: "Thing",
-  right: "Other Thing"
-});
-
-// $("#trans-slider").prop_slider({
-//   left: "More Transparent",
-//   right: "Less Transparent",
-//   min: 0,
-//   max: 100,
-//   step: 20,
-//   value: 70,
-//   // callback: function(trans) {window.trans = trans},
-// });
 
 // Function to adjust screen arrangement for mobile
 // iff device has a small screen

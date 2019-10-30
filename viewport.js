@@ -339,7 +339,7 @@ var scheme3 = {
 
 setColors(scheme1, 0.7);
 
-$("#test-box").colorbox({
+$("#color-box").colorbox({
   data: [scheme1, scheme2, scheme3],
   callback: setColors
 });
@@ -453,9 +453,40 @@ function zoomToVectorExtent() {
   map.getView().fit(window.activeExtent, { duration: 1000 });
 }
 
+function getRankValue(feature) {
+  if (window.displayMode == "single") {
+    var rank = feature.getProperties()[window.currentLayer];
+    return rank;
+  } else if (window.displayMode == "stressors") {
+    let physical = feature.getProperties()["rb"]; // Hardcoded value
+    let coastal = feature.getProperties()["qb"]; // Hardcoded value
+    return (
+      window.physical_coastal * physical +
+      (1 - window.physical_coastal) * coastal
+    );
+  } else if (window.displayMode == "enviro-social") {
+    let naturalHabitatExposure = feature.getProperties()["kb"]; // Hardcoded value
+    let socialExposure = feature.getProperties()["ob"]; // Hardcoded value
+    return (
+      window.enviro_social * naturalHabitatExposure +
+      (1 - window.enviro_social) * socialExposure
+    );
+  } else if (window.displayMode == "ExSenAd") {
+    let exposure = 3;
+    let sensitivity = 4;
+    let adaptivity = 2;
+
+    return (
+      window.exposureCoef * exposure +
+      window.sensitivityCoef * sensitivity -
+      window.adaptivityCoef * adaptivity
+    );
+  }
+}
+
 function colorStyle(feature) {
   if (feature) {
-    var rank = feature.getProperties()[window.currentLayer];
+    let rank = getRankValue(feature);
     if (shouldShowFeature(feature)) {
       var color = colorRankInterpolate(rank);
     } else {
@@ -907,18 +938,22 @@ function radioLayerUpdate() {
     "max-height": "0px",
     display: "none"
   });
-  if (radioVal == "overall") {
+  if (radioVal == "tradeoff") {
+    window.displayMode = window.currentTradeoffChoice;
     overallBox.css({
       "max-height": "100%",
       display: "block"
     });
+    updateLayer();
   }
+
   if (radioVal == "ind") {
     independentBox.css({
       "max-height": "100%",
       display: "block"
     });
     window.currentLayer = window.independentLayer;
+    window.displayMode = "single";
     updateLayer();
   }
 
@@ -928,6 +963,7 @@ function radioLayerUpdate() {
       display: "block"
     });
     window.currentLayer = window.outLayer;
+    window.displayMode = "single";
     updateLayer();
   }
 }
@@ -1017,7 +1053,7 @@ select.on("select", function(e) {
         "</span><br>"
     );
     content.append(
-      "<span><b>Rank:</b> " + featureValues[window.currentLayer] + "</span><br>"
+      "<span><b>Rank:</b> " + getRankValue(feature) + "</span><br>"
     );
     $("#popup-content").html(content);
     popupOverlay.setPosition(center);
@@ -1031,7 +1067,7 @@ $("#popup-closer").click(closePopup);
 var scaleBarSteps = 4;
 var scaleBarText = true;
 var control;
-document.body.style.cursor = 'progress';
+document.body.style.cursor = "progress";
 
 function scaleControl(units) {
   control = new ScaleLine({
@@ -1098,3 +1134,113 @@ window.fire = function() {
     });
   });
 };
+
+var tradeoffPicker = $("#tradeoff-picker");
+$(tradeoffPicker).combobox({
+  label: "Select a tradeoff to explore.",
+  select: function(event, ui) {
+    updateTradeoffSelection(ui.item.value);
+  }
+});
+
+window.currentTradeoffChoice = tradeoffPicker
+  .children()
+  .first()
+  .val();
+updateTradeoffSelection(window.currentTradeoffChoice);
+
+function updateTradeoffSelection(tradeoffVal) {
+  let stressorBox = $("#stressor-options");
+  let enviroSocialBox = $("#enviro-social-options");
+  let ExSenAdBox = $("#ExSenAd-options");
+  window.currentTradeoffChoice = tradeoffVal;
+
+  stressorBox.css({
+    "max-height": "0px",
+    display: "none"
+  });
+  enviroSocialBox.css({
+    "max-height": "0px",
+    display: "none"
+  });
+  ExSenAdBox.css({
+    "max-height": "0px",
+    display: "none"
+  });
+  if ($("input[name='layer']:checked").val() == "tradeoff") {
+    if (tradeoffVal == "stressors") {
+      window.displayMode = "stressors";
+      stressorBox.css({
+        "max-height": "100%",
+        display: "block"
+      });
+    } else if (tradeoffVal == "enviro-social") {
+      window.displayMode = "enviro-social";
+      enviroSocialBox.css({
+        "max-height": "100%",
+        display: "block"
+      });
+    } else if (tradeoffVal == "ExSenAd") {
+      window.displayMode = "ExSenAd";
+      ExSenAdBox.css({
+        "max-height": "100%",
+        display: "block"
+      });
+    }
+    updateLayer();
+  }
+}
+
+$("#stressor-slider").prop_slider({
+  left: "Physical Stressors",
+  right: "Coastal Stressors",
+  callback: function(value) {
+    window.physical_coastal = value;
+    updateLayer();
+  }
+});
+
+$("#enviro-social-slider").prop_slider({
+  left: "Natural Habitat",
+  right: "Social Exposure",
+  callback: function(value) {
+    window.enviro_social = value;
+    updateLayer();
+  }
+});
+
+$("#exposure-slider").prop_slider({
+  left: "",
+  right: "Exposure",
+  min: 10,
+  max: 100,
+  labelWidth: "auto",
+  callback: function(value) {
+    window.exposureCoef = value;
+    updateLayer();
+  }
+});
+
+$("#sensitivity-slider").prop_slider({
+  left: "",
+  right: "Sensitivity",
+  min: 10,
+  max: 100,
+  labelWidth: "auto",
+  callback: function(value) {
+    window.sensitivityCoef = value;
+    updateLayer();
+  }
+});
+
+$("#adaptivity-slider").prop_slider({
+  left: "",
+  right: "Adaptive Capacity",
+  min: 10,
+  max: 100,
+  labelWidth: "auto",
+  callback: function(value) {
+    window.adaptivityCoef = value;
+    updateLayer();
+  }
+});

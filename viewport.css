@@ -436,3 +436,15 @@ body {
 .col-info ul {
   padding-left: 30px;
 }
+
+/* .slider-label {
+  width: 10ch;
+} */
+
+.slder-left-label {
+  text-align: left;
+}
+
+.slider-right-label {
+  text-align: right;
+}

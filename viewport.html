@@ -77,14 +77,33 @@
           <input type="radio" name="layer" value="ind" checked /> Individual
           Layers<br />
           <input type="radio" name="layer" value="out" /> Output Layers<br />
-          <input type="radio" name="layer" value="overall" /> Weighted
+          <input type="radio" name="layer" value="tradeoff" /> Weighted
           Exposure<br />
         </div>
         <div id="overall-layer-options" class="collapsible hori-margin">
           <h3>Analysis Options</h3>
-          <div>Explore the tradeoffs yourself.</div>
-          <div id="environment-man-slider"></div>
-          <div id="thing-slider"></div>
+          <p>Explore the tradeoffs yourself. Select an option.</p>
+          <select id="tradeoff-picker">
+            <option value="stressors">Physical vs. Coastal Stressors</option>
+            <option value="enviro-social">Natural Habitat vs. Social Exposure</option>
+            <option value="ExSenAd"
+              >Exposure, Sensitivity, and Adaptive Capacity</option
+            >
+          </select>
+          <div id="stressor-options">
+            <div id="stressor-slider"></div>
+          </div>
+          <div id="enviro-social-options">
+            <div id="enviro-social-slider"></div>
+          </div>
+          <div id="enviro-social-options">
+            <div id="enviro-social-slider"></div>
+          </div>
+          <div id="ExSenAd-options">
+            <div id="exposure-slider"></div>
+            <div id="sensitivity-slider"></div>
+            <div id="adaptivity-slider"></div>
+          </div>
         </div>
         <div id="independent-layer-options" class="collapsible hori-margin">
           <h3>Select Input Layer</h3>
@@ -118,18 +137,10 @@
         <div id="view-options" class="hori-margin">
           <h3>View Options</h3>
           <p>Change the map display.</p>
-          <div id="test-box"></div>
+          <div id="color-box"></div>
           <div id="trans-slider"></div>
           <br />
         </div>
-        <!-- <div id='score-calc-approach' class='hori-margin'>
-                <h3>Score Calculation Approach</h3>
-                <p>
-                    Chose method for determining color scheme here.
-                </p>
-                <input type="radio" name="calc-approach" value="abs" checked> Absolute<br>
-                <input type="radio" name="calc-approach" value="rel"> Relative<br>
-            </div> -->
       </div>
       <div id="col-map" class="col-map">
         <div id="map" class="map"></div>
