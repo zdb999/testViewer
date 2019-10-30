@@ -167,12 +167,22 @@ $.getJSON("./metadata.json", function(data) {
   });
 });
 
-function updateLayer() {
+function updateLayer(resetStyle = false) {
   if (window.metadata) {
     vectorLayer.getSource().changed();
     calculateActiveVectorProperties();
     displayLayer(window.currentLayer);
     closePopup();
+    if (resetStyle) {
+      styleCache = {
+        clear: new Style({
+          fill: new Fill({
+            color: window.colorScheme.clear
+          }),
+          stroke: null
+        })
+      };
+    }
   }
 }
 
@@ -220,12 +230,6 @@ function displayLayer(val) {
   }
   content.append(linkList);
   content.append($("<p>").text(abstract));
-  // if (sup != null) {
-  //   content.append(sup);
-  // }
-  // content.append(
-  //   "<table><tr><td>Rank</td><td>Meaning (Units)</td></tr><tr><td>1</td><td>3.4</td></tr><tr><td>2</td><td>10</td></tr><tr><td>3</td><td>12.1</td></tr><tr><td>4</td><td>14.2</td></tr><tr><td>5</td><td>16.3</td></tr></table>"
-  // );
   content.append($("<h3>").text("Selected Area Stats"));
   let plot = $("<div>").addClass("side-plot");
   content.append(plot);
@@ -302,7 +306,7 @@ function setColors(scheme, transparency) {
   outScheme.five.push(transparency);
 
   window.colorScheme = outScheme;
-  updateLayer();
+  updateLayer(true);
 }
 var scheme1 = {
   name: "Scheme 1",
@@ -346,9 +350,7 @@ $("#trans-slider").prop_slider({
   max: 100,
   callback: function(value) {
     setColors(window.colorScheme, value);
-    if (vectorLayer != null) {
-      vectorLayer.changed();
-    }
+    updateLayer(true);
   }
 });
 
@@ -481,13 +483,26 @@ function getRankValue(feature) {
   }
 }
 
+var styleCache = {
+  clear: new Style({
+    fill: new Fill({
+      color: window.colorScheme.clear
+    }),
+    stroke: null
+  })
+};
 function colorStyle(feature) {
   if (feature) {
     let rank = getRankValue(feature);
-    if (shouldShowFeature(feature)) {
+    let inBounds = shouldShowFeature(feature);
+    if (inBounds) {
+      var style = styleCache[rank];
+      if (style != null) {
+        return style;
+      }
       var color = colorRankInterpolate(rank);
     } else {
-      var color = window.colorScheme.clear;
+      return styleCache["clear"];
     }
     if (color == window.colorScheme.transparent) {
       var stroke = null;
@@ -497,12 +512,13 @@ function colorStyle(feature) {
         color: color
       });
     }
-    return new Style({
+    var style = (styleCache[rank] = new Style({
       fill: new Fill({
         color: color
       }),
       stroke: stroke
-    });
+    }));
+    return style;
   }
 }
 
@@ -527,7 +543,6 @@ var streetLayer = new TileLayer({
       "World_Street_Map/MapServer/tile/{z}/{y}/{x}"
   })
 });
-
 
 var topoLayer = new TileLayer({
   source: new XYZ({
