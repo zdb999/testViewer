@@ -148,9 +148,9 @@
             "nickname": "Tidal Range",
             "zipfile": "./zipped_layers/TidalRange.zip",
             "layerType": "ind",
-            "abstract": "Add metadata later.",
+            "abstract": "This data table defines the coastal vulnerability given by Tidal range. Tidal range for each features is described in the field tide. It has been divided in different categories, ranking from 1 (less vulnerable) to 5 (most vulnerable). If the feature is not affected by tides rank is zero and tide is -9999.",
             "link": "https://lisicos.uconn.edu/arcgis/rest/services/Sea_Level/lis_2016lidar/MapServer ",
-            "metalink": "",
+            "metalink": "metadata_files/metadata_tide.docx",
             "path": "./input/MHHWin_NAVD88NEW.shp"
         },
         "s": {
@@ -195,7 +195,7 @@
             "layerType": "ind",
             "abstract": "This data table defines the Connecticut coastal vulnerability based on the wind speed at 30(m).  It has been divided in different categories, ranking from1 (less vulnerable) to 5 (most vulnerable).",
             "link": "https://docs.digital.mass.gov/dataset/massgis-data-modeled-wind-speed-grids",
-            "metalink": "metadata_files/metadata_wind.docx",
+            "metalink": "metadata_files/metadata_wind10m.docx",
             "path": "./input/windNEW.shp"
         },
         "y": {
@@ -274,9 +274,9 @@
             "nickname": "Railways",
             "zipfile": "./zipped_layers/Railways.zip",
             "layerType": "ind",
-            "abstract": "Add metadata later.",
+            "abstract": "This data table defines the coastal vulnerability given by railway elevation. Railway elevation for each features is described in the field elevation. It has been divided in five different categories, ranking from 1.5 (less vulnerable) to 5 (most vulnerable). If the feature does not contain streets rank is zero and elevation is -9999.",
             "link": "http://cteco.uconn.edu/metadata/dep/document/Railroad_FGDC_Plus.htm",
-            "metalink": "",
+            "metalink": "metadata_files/metadata_amtrak.docx",
             "path": "./input/AmtrackNEW.shp"
         },
         "ib": {
@@ -368,6 +368,33 @@
             "link": "",
             "metalink": "metadata_files/metadata_physicalstressor.docx",
             "path": "./exposure/physical_stressor.shp"
+        },
+        "sb": {
+            "nickname": "Layer nickname that appears in viewer",
+            "zipfile": "./zipped_layers/Layernicknamethatappearsinviewer.zip",
+            "layerType": "esac",
+            "abstract": "",
+            "link": "",
+            "metalink": "",
+            "path": "./input/sensitivity.shp"
+        },
+        "ub": {
+            "nickname": "Layer nickname that appears in viewer",
+            "zipfile": "./zipped_layers/Layernicknamethatappearsinviewer.zip",
+            "layerType": "esac",
+            "abstract": "",
+            "link": "",
+            "metalink": "",
+            "path": "./input/exposure.shp"
+        },
+        "vb": {
+            "nickname": "Layer nickname that appears in viewer",
+            "zipfile": "./zipped_layers/Layernicknamethatappearsinviewer.zip",
+            "layerType": "esac",
+            "abstract": "",
+            "link": "",
+            "metalink": "",
+            "path": "./input/adaptiveCapacity.shp"
         }
     },
     "layerList": [
@@ -388,6 +415,9 @@
         "Health Insurance",
         "Hydraulic Connectivity",
         "Impervious Area",
+        "Layer nickname that appears in viewer",
+        "Layer nickname that appears in viewer",
+        "Layer nickname that appears in viewer",
         "Median Household Income",
         "Natural Habitat Exposure",
         "Physical Impact",

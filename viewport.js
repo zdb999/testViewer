@@ -471,9 +471,10 @@ function getRankValue(feature) {
       (1 - window.enviro_social) * socialExposure
     );
   } else if (window.displayMode == "ExSenAd") {
-    let exposure = 3;
-    let sensitivity = 4;
-    let adaptivity = 2;
+    let properties = feature.getProperties(); 
+    let exposure = properties["ub"]; // Hardcoded value;
+    let sensitivity = properties["sb"]; // Hardcoded value;
+    let adaptivity = properties["vb"]; // Hardcoded value;
 
     return (
       window.exposureCoef * exposure +
